@@ -40,6 +40,11 @@ if [ -z "$1" ]; then
   exit 1
 fi
 
+if [ ! -z $3 ]; then
+  echo "Too many parameters."
+  exit 1
+fi
+
 # Create new template
 if [ $1 == "new" ]; then
   check_parameter $2
@@ -71,20 +76,34 @@ if [ $1 == "update" ]; then
   exit 0
 fi
 
-check_template $1
+# Delete template
+if [ $1 == "remove" ]; then
+  check_parameter $2
+  check_template $2
 
-if [ ! -z $2 ]; then
-  echo "Too many parameters."
-  exit 1
-fi
+  # Ask for confirmation.
+  if [ ! -z "$(ls -A $PWD)" ]; then
+    echo "You are about to remove a template."
+    confirm
+  fi
 
-# Ask for confirmation if folder not empty.
-if [ ! -z "$(ls -A $PWD)" ]; then
-  echo "This folder is not empty."
-  confirm
+  rm -rf $TEMPLATES_DIR/$2
+  echo "Successfully removed \"$2\"."
+  exit 0
 fi
 
 # Create project from template
-cp -r $TEMPLATES_DIR/$1/* $PWD
-echo "Successfully created project from template."
-exit 0
+if [ $1 == "create" ]; then
+  check_template $2
+
+  # Ask for confirmation if folder not empty.
+  if [ ! -z "$(ls -A $PWD)" ]; then
+    echo "This folder is not empty."
+    confirm
+  fi
+
+  # Create project from template
+  cp -r $TEMPLATES_DIR/$2/* $PWD
+  echo "Successfully created project from template."
+  exit 0
+fi
