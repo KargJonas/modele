@@ -10,3 +10,14 @@ By passing the name as a parameter, you can specify which template you want to g
 ```bash
 $ modele your-template
 ```
+
+### Installation
+There's a couple ways to "install" the script but the easiest way is probably to create an alias by adding this line to your `.bashrc`:
+```bash
+alias modele="~/path/to/modele/modele.sh"
+```
+
+You might also need to make the script executable:
+```bash
+$ sudo chmod +x modele.sh
+```
