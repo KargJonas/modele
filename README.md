@@ -6,11 +6,8 @@ Modele consists of only one very simple `.sh` file, which copies the contents of
 
 The folder `templates/` contains all your templates in individual folders. You can customize the location of your templates folder by changing the `TEMPLATES_DIR` variable in the script.
 
-#### `modele <template>`
-By passing the name as a parameter, you can specify which template you want to generate:
-```bash
-$ modele your-template
-```
+#### `modele create <template>`
+Generates a project from the specified template in your current folder.
 
 #### `modele new <template>`
 Creates a new template with the contents of your current folder.
