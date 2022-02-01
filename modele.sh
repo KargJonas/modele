@@ -35,6 +35,11 @@ function confirm() {
   fi
 }
 
+# Print modele option
+function print_option() {
+  echo -e "\tmodele $1\t$2"
+}
+
 if [ -z "$1" ]; then
   echo "No template specified."
   exit 1
@@ -106,4 +111,18 @@ if [ $1 == "create" ]; then
   cp -r $TEMPLATES_DIR/$2/* $PWD
   echo "Successfully created project from template."
   exit 0
+fi
+
+# Create project from template
+if [ $1 == "help" ]; then
+  check_template $2
+
+  echo -e "Modele options:\n"
+  print_option "create <template>" "Generates a project from the specified template in your current folder."
+  print_option "new    <template>" "Create a new template with the contents of your current folder."
+  print_option "update <template>" "Updates an existing template with the contents of the current folder."
+  print_option "remove <template>" "Deletes the template from the template folder."
+  echo -e "\nIf no template is specified, modele will default to the current folder."
+  echo -e "Modele will ask you for confirmation before deleting, modifying or overwriting projects or templates."
+  echo "Templates are stored under \"$TEMPLATES_DIR\"."
 fi
