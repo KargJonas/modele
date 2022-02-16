@@ -113,15 +113,23 @@ if [ $1 == "create" ]; then
   exit 0
 fi
 
+# List all templates
+if [ $1 == "list" ]; then
+  echo "Your templates:"
+  ls -t -1 $TEMPLATES_DIR
+  exit 0
+fi
+
 # Create project from template
 if [ $1 == "help" ]; then
   check_template $2
 
   echo -e "Modele options:\n"
-  print_option "create <template>" "Generates a project from the specified template in your current folder."
-  print_option "new    <template>" "Create a new template with the contents of your current folder."
-  print_option "update <template>" "Updates an existing template with the contents of the current folder."
-  print_option "remove <template>" "Deletes the template from the template folder."
+  print_option "new    <template>" "Create new template from current folder."
+  print_option "update <template>" "Update an existing template."
+  print_option "remove <template>" "Delete a template."
+  print_option "create <template>" "Generate a new project from a template."
+  print_option "list             " "List all templates."
   echo -e "\nIf no template is specified, modele will default to the current folder."
   echo -e "Modele will ask you for confirmation before deleting, modifying or overwriting projects or templates."
   echo "Templates are stored under \"$TEMPLATES_DIR\"."
